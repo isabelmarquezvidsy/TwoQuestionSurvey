@@ -185,6 +185,25 @@
             return users;
         };
 
+        // Function to get the display name for a question ID (moved to global scope)
+        const getQuestionDisplayName = (id) => {
+            switch (id) {
+                case 'portfolio': return 'Portfolio';
+                case 'primaryWorkLocation': return 'Primary work location';
+                case 'address': return 'Address';
+                case 'Mobile': return 'Phone number'; // Changed to Phone number as per visual
+                case 'languages_spoken_fluently': return 'Spoken languages';
+                case 'can_feature_small_business': return 'Can feature small business?'; // Added question mark for consistency
+                case 'hair_type': return 'Hair type';
+                case 'hair_colour': return 'Hair colour';
+                case 'tattoos': return 'Tattoos';
+                case 'piercings': return 'Piercings';
+                case 'filmingLocation': return 'The filming location';
+                case 'coStars': return 'Your co-stars';
+                default: return id.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            }
+        };
+
         // Backstage Component
         const Backstage = ({ setView }) => {
             const { surveyConfig, setSurveyConfig } = React.useContext(AppContext);
@@ -1210,8 +1229,9 @@
 
             // Predefined question IDs in their desired display order
             const predefinedQuestionOrder = [
-                'portfolio', 'primaryWorkLocation', 'can_feature_small_business', 'address',
-                'Mobile', 'languages_spoken_fluently', 'hair_type', 'hair_colour', 'tattoos', 'piercings'
+                'portfolio', 'can_feature_small_business', 'Mobile', 'languages_spoken_fluently',
+                'hair_type', 'hair_colour', 'tattoos', 'piercings', 'address', // Address moved for logical flow
+                'filmingLocation', 'coStars'
             ];
 
             // Add selected predefined questions
@@ -1762,7 +1782,7 @@
                                             ))}
                                         </React.Fragment>
                                     ) : (
-                                        null /* No message displayed if no questions are selected */
+                                        <p className="text-center text-lg text-gray-600 mt-8">No questions have been selected for this survey yet. Please check the Internal/Community UX.</p>
                                     )}
                                 </div>
                             )}
